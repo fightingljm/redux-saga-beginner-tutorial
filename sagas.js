@@ -3,7 +3,7 @@ import { put, call } from 'redux-saga/effects'
 
 //hello saga
 export function* helloSaga() {
-  console.log('Hello Sagas!');
+    console.log('Hello Sagas!');
 }
 
 // 一个工具函数：返回一个 Promise，这个 Promise 将在 1 秒后 resolve
@@ -18,5 +18,13 @@ export function* incrementAsync() {
 
 // Our watcher Saga: 在每个 INCREMENT_ASYNC action 调用后，派生一个新的 incrementAsync 任务
 export function* watchIncrementAsync() {
-  yield* takeEvery('INCREMENT_ASYNC', incrementAsync)
+    yield* takeEvery('INCREMENT_ASYNC', incrementAsync)
+}
+
+// single entry point to start all Sagas at once
+export default function* rootSaga() {
+    yield [
+        helloSaga(),
+        watchIncrementAsync()
+    ]
 }

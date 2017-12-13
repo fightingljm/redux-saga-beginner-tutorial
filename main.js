@@ -6,15 +6,18 @@ import { createStore, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 
 //引入 ./sagas 模块中的 Saga
-import { helloSaga, watchIncrementAsync } from './sagas'
+// import { helloSaga, watchIncrementAsync } from './sagas'
 
 import Counter from './Counter'
 import reducer from './reducers'
+import rootSaga from './sagas'
 
+const sagaMiddleware = createSagaMiddleware()
 const store = createStore(
     reducer,
-    applyMiddleware(createSagaMiddleware(helloSaga,watchIncrementAsync))
+    applyMiddleware(sagaMiddleware)
 )
+sagaMiddleware.run(rootSaga)
 
 const action = type => store.dispatch({type})
 
@@ -23,7 +26,8 @@ function render() {
         <Counter
             value={store.getState()}
             onIncrement={() => action('INCREMENT')}
-            onDecrement={() => action('INCREMENT_ASYNC')}
+            onDecrement={() => action('DECREMENT')}
+            onIncrementAsync={() => action('INCREMENT_ASYNC')}
         />,
         document.getElementById('root')
     )
