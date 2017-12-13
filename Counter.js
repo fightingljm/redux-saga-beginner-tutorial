@@ -2,19 +2,19 @@
 import React, { Component, PropTypes } from 'react'
 
 const Counter = ({ value, onIncrement, onDecrement, onIncrementAsync }) =>
-      <div>
+    <div>
         <button onClick={onIncrementAsync}>
-          Increment
+            Increment
         </button>
         {' '}
         <button onClick={onDecrement}>
-          Decrement
+            Decrement
         </button>
         <hr />
         <div>
-          Clicked: {value} times
+            Clicked: {value} times
         </div>
-      </div>
+    </div>
 
 Counter.propTypes = {
   value: PropTypes.number.isRequired,
